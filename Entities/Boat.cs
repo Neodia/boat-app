@@ -7,16 +7,23 @@ namespace boat_app.Entities
 {
     public class Boat
     {
-
+        private int id;
         private string name;
-        private string model;
+        private string desc;
 
         public Boat() { }
 
-        public Boat(string bName, string bModel)
+        public Boat(int bId, string bName, string bDesc)
         {
+            id = bId;
             name = bName;
-            model = bModel;
+            desc = bDesc;
+        }
+
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
         }
 
         public string Name
@@ -25,15 +32,15 @@ namespace boat_app.Entities
             set { name = value; }
         }
 
-        public string Model
+        public string Desc
         {
-            get { return model; }
-            set { model = value; }
+            get { return desc; }
+            set { desc = value; }
         }
 
         public override string ToString()
         {
-            return Name + " " + Model;
+            return Name + " " + Desc;
         }
 
     }

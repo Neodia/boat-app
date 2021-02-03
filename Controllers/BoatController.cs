@@ -1,9 +1,8 @@
 ﻿using boat_app.Entities;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace boat_app.Controllers
 {
@@ -28,6 +27,15 @@ namespace boat_app.Controllers
         public IEnumerable<Boat> Get()
         {
             return bs;
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult<Boat> GetBoat(string id)
+        {
+            Boat ret = bs.FirstOrDefault(b => b.Id.ToString() == id);
+            if (ret == null)
+                return Json(new { status = 404, message = "No user with given ID." });
+            else return Json(new { status = 200, message = "", obj = ret });
         }
     }
 }

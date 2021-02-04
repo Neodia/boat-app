@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Boat} from '../boat'
 
 
 @Component({
@@ -14,10 +14,4 @@ export class ModalModifyComponent {
     document.getElementById("modifyModal").style.display = "none";
   }
 
-}
-
-interface Boat {
-  id: number;
-  name: string;
-  desc: string;
 }

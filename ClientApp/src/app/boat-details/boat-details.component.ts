@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { Boat } from '../boat'
 
 
 @Component({
@@ -33,10 +34,4 @@ interface Resp {
   status: number,
   message: string,
   obj: Boat
-}
-
-interface Boat {
-  id: number;
-  name: string;
-  desc: string;
 }

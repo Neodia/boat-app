@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Boat } from '../boat'
 
 
 @Component({
@@ -29,10 +30,4 @@ export class HomeComponent {
     document.getElementById("modify-" + id).style.display = "none";
   }
 
-}
-
-interface Boat {
-  id: number;
-  name: string;
-  desc: string;
 }

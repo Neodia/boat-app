@@ -1,3 +1,4 @@
+
 <div class="row col-md-6 offset-md-3 border rounded">
   <h2 class="w-100 text-center"> Boats list </h2>
   <table class="table">
@@ -14,6 +15,9 @@
         <td>{{ boat.name }}</td>
         <td>{{ boat.desc }}</td>
       </tr>
-    </tbody> 
-</table>
+    </tbody>
+  </table>
+  <button type="button" (click)="getModal()">Click me !</button>
+
+  <modal-modify [boat]="selectedBoat"></modal-modify>
 </div>

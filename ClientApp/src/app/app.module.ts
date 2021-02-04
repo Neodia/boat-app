@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { BoatDetailsComponent } from './boat-details/boat-details.component';
+import { ModalModifyComponent } from './modal-modify/modal-modify.component';
 // import { CounterComponent } from './counter/counter.component';
 // import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
@@ -16,7 +17,8 @@ import { BoatDetailsComponent } from './boat-details/boat-details.component';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    BoatDetailsComponent
+    BoatDetailsComponent,
+    ModalModifyComponent
     // CounterComponent,
     // FetchDataComponent
   ],

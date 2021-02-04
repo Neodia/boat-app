@@ -20,6 +20,14 @@ export class HomeComponent {
     document.getElementById("modifyModal").style.display = "block";
   }
 
+  hover(id: number): void {
+    document.getElementById("modify-" + id).style.display = "block";
+  }
+
+  leave(id: number): void {
+    document.getElementById("modify-" + id).style.display = "none";
+  }
+
 }
 
 interface Boat {

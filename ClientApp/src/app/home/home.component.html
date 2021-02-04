@@ -1,4 +1,3 @@
-
 <div class="row col-md-6 offset-md-3 border rounded">
   <h2 class="w-100 text-center"> Boats list </h2>
   <table class="table">
@@ -6,18 +5,19 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
-        <th scope="col">Description</th>
+        <th scope="col" colspan="2">Description</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let boat of boats" [routerLink]="['/boat-details/' + boat.id]">
-        <td>{{ boat.id }}</td>
-        <td>{{ boat.name }}</td>
-        <td>{{ boat.desc }}</td>
+      <tr *ngFor="let boat of boats" (mouseenter)="hover(boat.id)" (mouseleave)="leave(boat.id)" >
+        <td class="h-auto" [routerLink]="['/boat-details/' + boat.id]">{{ boat.id }}</td>
+        <td class="h-auto" [routerLink]="['/boat-details/' + boat.id]">{{ boat.name }}</td>
+        <td class="h-auto" [routerLink]="['/boat-details/' + boat.id]">{{ boat.desc }}</td>
+        <td> <button type="button" class="btn p-0" id="modify-{{boat.id}}" (click)="getModal()" style="display: none;"><i class="material-icons">build</i></button> </td>
       </tr>
     </tbody>
   </table>
-  <button type="button" (click)="getModal()">Click me !</button>
+  <!--<button type="button" (click)="getModal()">Click me !</button> -->
 
   <modal-modify [boat]="selectedBoat"></modal-modify>
 </div>

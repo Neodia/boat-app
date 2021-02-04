@@ -35,7 +35,7 @@ namespace boat_app.Controllers
         {
             Boat ret = bs.FirstOrDefault(b => b.Id.ToString() == id);
             if (ret == null)
-                return Json(new { status = 404, message = "No user with given ID." });
+                return Json(new { status = 404, message = "No boat with given ID." });
             else return Json(new { status = 200, message = "", obj = ret });
         }
 

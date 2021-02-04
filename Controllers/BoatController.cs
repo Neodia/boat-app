@@ -30,12 +30,18 @@ namespace boat_app.Controllers
             return bs;
         }
 
+        public JsonResult ReturnErr(HttpStatusCode code, string msg)
+        {
+            HttpContext.Response.StatusCode = (int)code;
+            return Json(new { message = msg });
+        }
+
         [HttpGet("{id}")]
         public ActionResult<Boat> GetBoat(string id)
         {
             Boat ret = bs.FirstOrDefault(b => b.Id.ToString() == id);
             if (ret == null)
-                return Json(new { status = 404, message = "No boat with given ID." });
+                return ReturnErr(HttpStatusCode.NotFound, "No boat with this ID");
             else return Json(new { status = 200, message = "", obj = ret });
         }
 
@@ -52,7 +58,7 @@ namespace boat_app.Controllers
         {
             int index = bs.IndexOf(bs.FirstOrDefault<Boat>(b => b.Id.ToString() == id));
             if (index == -1)
-                return Json(new { status = 404, message = "No boat with given ID." });
+                return ReturnErr(HttpStatusCode.NotFound, "No boat with this ID");
             bs[index] = boat;
             return Json(new { status = 200, message = "", obj = boat });
         }
@@ -61,8 +67,8 @@ namespace boat_app.Controllers
         public JsonResult DeleteBoat(string id)
         {
             Boat b = bs.FirstOrDefault(b => b.Id.ToString() == id);
-            if ( !bs.Remove(b) )
-                return Json(new { status = 404, message = "No boat with given ID." });
+            if ( !bs.Remove(b))
+                return ReturnErr(HttpStatusCode.NotFound, "No boat with this id");
             return Json(new { status = 200, message = "", obj = b });
         }
     }

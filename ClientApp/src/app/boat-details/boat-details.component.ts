@@ -24,6 +24,10 @@ export class BoatDetailsComponent {
     }, err => console.error(err));
   }
 
+  onSaveChange(boat: Boat): void {
+    this.boat = boat;
+  }
+
   getModal(): void {
     document.getElementById('modifyModal').style.display = "block";
   }

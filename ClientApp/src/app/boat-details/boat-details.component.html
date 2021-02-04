@@ -12,5 +12,5 @@
     </div>
   </div>
 
-  <modal-modify [boat]="boat"></modal-modify>
+  <modal-modify [boat]="boat" (retboat)="onSaveChange($event)"></modal-modify>
 </div>

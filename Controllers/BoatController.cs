@@ -12,15 +12,16 @@ namespace boat_app.Controllers
     [ApiController]
     public class BoatController : Controller
     {
+        private static int boatId = 0;
         private static List<Boat> bs = new List<Boat>(new Boat[]{
-            new Boat(0, "MyBoat1", "MyModel1"),
-            new Boat(1, "MyBoat2", "MyModel2"),
-            new Boat(2, "MyBoat3", "MyModel3"),
-            new Boat(3, "MyBoat4", "MyModel4"),
-            new Boat(4, "MyBoat5", "MyModel5"),
-            new Boat(5, "MyBoat6", "MyModel6"),
-            new Boat(6, "MyBoat7", "MyModel7"),
-            new Boat(7, "MyBoat8", "MyModel8")
+            new Boat(boatId++, "MyBoat1", "MyModel1"),
+            new Boat(boatId++, "MyBoat2", "MyModel2"),
+            new Boat(boatId++, "MyBoat3", "MyModel3"),
+            new Boat(boatId++, "MyBoat4", "MyModel4"),
+            new Boat(boatId++, "MyBoat5", "MyModel5"),
+            new Boat(boatId++, "MyBoat6", "MyModel6"),
+            new Boat(boatId++, "MyBoat7", "MyModel7"),
+            new Boat(boatId++, "MyBoat8", "MyModel8")
         });
 
         [HttpGet]
@@ -36,6 +37,14 @@ namespace boat_app.Controllers
             if (ret == null)
                 return Json(new { status = 404, message = "No boat with given ID." });
             else return Json(new { status = 200, message = "", obj = ret });
+        }
+
+        [HttpPost]
+        public JsonResult PostBoat([FromBody] Boat boat)
+        {
+            boat.Id = boatId++;
+            bs.Add(boat);
+            return Json(new { status = 200, message = "", obj = boat });
         }
 
         [HttpPut("{id}")]

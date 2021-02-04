@@ -56,5 +56,14 @@ namespace boat_app.Controllers
             bs[index] = boat;
             return Json(new { status = 200, message = "", obj = boat });
         }
+
+        [HttpDelete("{id}")]
+        public JsonResult DeleteBoat(string id)
+        {
+            Boat b = bs.FirstOrDefault(b => b.Id.ToString() == id);
+            if ( !bs.Remove(b) )
+                return Json(new { status = 404, message = "No boat with given ID." });
+            return Json(new { status = 200, message = "", obj = b });
+        }
     }
 }

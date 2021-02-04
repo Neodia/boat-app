@@ -29,9 +29,13 @@ export class HomeComponent {
     }, err => console.error(err));
   }
 
+  onSaveChanges(boat: Boat): void {
+    this.boats[this.boats.indexOf(this.selectedBoat)] = boat;
+  }
+
   hover(id: number): void {
-    document.getElementById("modify-" + id).style.display = "block";
-    document.getElementById("delete-" + id).style.display = "block";
+    document.getElementById("modify-" + id).style.display = "inline-block";
+    document.getElementById("delete-" + id).style.display = "inline-block";
   }
 
   leave(id: number): void {

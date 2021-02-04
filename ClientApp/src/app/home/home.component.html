@@ -1,28 +1,28 @@
 <div class="row col-md-6 offset-md-3 border rounded">
   <h2 class="w-100 text-center"> Boats list </h2>
-  <table class="table">
+  <table class="table" style="table-layout: fixed; word-wrap:break-word;">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
-        <th scope="col" colspan="3">Description</th>
+        <th scope="col">Description</th>
+        <th scope="col">Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let boat of boats" (mouseenter)="hover(boat.id)" (mouseleave)="leave(boat.id)">
         <td [routerLink]="['/boat-details/' + boat.id]">{{ boat.id }}</td>
         <td [routerLink]="['/boat-details/' + boat.id]">{{ boat.name }}</td>
-        <td [routerLink]="['/boat-details/' + boat.id]">{{ boat.desc }}</td>
-        <td>
-          <button type="button" class="btn p-0 position-fixed" id="modify-{{boat.id}}" (click)="getModal(boat)" style="display: none;"><i class="material-icons">build</i></button>
-        </td>
-        <td>
-          <button type="button" class="btn p-0 position-fixed" id="delete-{{boat.id}}" (click)="deleteBoat(boat)" style="display: none;"><i class="material-icons">delete</i></button>
+        <td [routerLink]="['/boat-details/' + boat.id]" class="text-truncate">{{ boat.desc }}</td>
+        <td class="pb-0 pt-1">
+          <button type="button" class="btn" id="modify-{{boat.id}}" (click)="getModal(boat)" style="display: none;"><i class="material-icons">build</i></button>
+
+          <button type="button" class="btn" id="delete-{{boat.id}}" (click)="deleteBoat(boat)" style="display: none;"><i class="material-icons">delete</i></button>
         </td>
       </tr>
     </tbody>
   </table>
   <!--<button type="button" (click)="getModal()">Click me !</button> -->
 
-  <modal-modify [boat]="selectedBoat"></modal-modify>
+  <modal-modify [boat]="selectedBoat" (retboat)="onSaveChanges($event)"></modal-modify>
 </div>

@@ -5,15 +5,20 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
-        <th scope="col" colspan="2">Description</th>
+        <th scope="col" colspan="3">Description</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let boat of boats" (mouseenter)="hover(boat.id)" (mouseleave)="leave(boat.id)" >
-        <td class="h-auto" [routerLink]="['/boat-details/' + boat.id]">{{ boat.id }}</td>
-        <td class="h-auto" [routerLink]="['/boat-details/' + boat.id]">{{ boat.name }}</td>
-        <td class="h-auto" [routerLink]="['/boat-details/' + boat.id]">{{ boat.desc }}</td>
-        <td> <button type="button" class="btn p-0" id="modify-{{boat.id}}" (click)="getModal(boat)" style="display: none;"><i class="material-icons">build</i></button> </td>
+      <tr *ngFor="let boat of boats" (mouseenter)="hover(boat.id)" (mouseleave)="leave(boat.id)">
+        <td [routerLink]="['/boat-details/' + boat.id]">{{ boat.id }}</td>
+        <td [routerLink]="['/boat-details/' + boat.id]">{{ boat.name }}</td>
+        <td [routerLink]="['/boat-details/' + boat.id]">{{ boat.desc }}</td>
+        <td>
+          <button type="button" class="btn p-0 position-fixed" id="modify-{{boat.id}}" (click)="getModal(boat)" style="display: none;"><i class="material-icons">build</i></button>
+        </td>
+        <td>
+          <button type="button" class="btn p-0 position-fixed" id="delete-{{boat.id}}" (click)="deleteBoat(boat)" style="display: none;"><i class="material-icons">delete</i></button>
+        </td>
       </tr>
     </tbody>
   </table>

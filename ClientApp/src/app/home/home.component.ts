@@ -12,7 +12,7 @@ export class HomeComponent {
   public boats: Boat[];
   public selectedBoat: Boat;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     console.log(baseUrl);
     http.get<Boat[]>(baseUrl + 'api/boat').subscribe(r => { this.boats = r; this.selectedBoat = this.boats[1]; }, err => console.error(err));
   }
@@ -22,12 +22,21 @@ export class HomeComponent {
     document.getElementById("modifyModal").style.display = "block";
   }
 
+  deleteBoat(boat: Boat): void {
+    this.http.delete(this.baseUrl + "api/boat/" + boat.id).subscribe(r => {
+      console.log("Success delete");
+      this.boats.splice(this.boats.indexOf(boat), 1);
+    }, err => console.error(err));
+  }
+
   hover(id: number): void {
     document.getElementById("modify-" + id).style.display = "block";
+    document.getElementById("delete-" + id).style.display = "block";
   }
 
   leave(id: number): void {
     document.getElementById("modify-" + id).style.display = "none";
+    document.getElementById("delete-" + id).style.display = "none";
   }
 
 }

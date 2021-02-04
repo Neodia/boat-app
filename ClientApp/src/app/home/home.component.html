@@ -13,7 +13,7 @@
         <td class="h-auto" [routerLink]="['/boat-details/' + boat.id]">{{ boat.id }}</td>
         <td class="h-auto" [routerLink]="['/boat-details/' + boat.id]">{{ boat.name }}</td>
         <td class="h-auto" [routerLink]="['/boat-details/' + boat.id]">{{ boat.desc }}</td>
-        <td> <button type="button" class="btn p-0" id="modify-{{boat.id}}" (click)="getModal()" style="display: none;"><i class="material-icons">build</i></button> </td>
+        <td> <button type="button" class="btn p-0" id="modify-{{boat.id}}" (click)="getModal(boat)" style="display: none;"><i class="material-icons">build</i></button> </td>
       </tr>
     </tbody>
   </table>

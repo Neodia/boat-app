@@ -16,7 +16,8 @@ export class HomeComponent {
     http.get<Boat[]>(baseUrl + 'api/boat').subscribe(r => { this.boats = r; this.selectedBoat = this.boats[1]; }, err => console.error(err));
   }
 
-  getModal(): void {
+  getModal(boat: Boat): void {
+    this.selectedBoat = boat;
     document.getElementById("modifyModal").style.display = "block";
   }
 

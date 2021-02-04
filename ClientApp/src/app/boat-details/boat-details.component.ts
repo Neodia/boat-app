@@ -23,6 +23,10 @@ export class BoatDetailsComponent {
     }, err => console.error(err));
   }
 
+  getModal(): void {
+    document.getElementById('modifyModal').style.display = "block";
+  }
+
 }
 
 interface Resp {

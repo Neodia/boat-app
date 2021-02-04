@@ -1,5 +1,6 @@
 ﻿using boat_app.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,7 +12,7 @@ namespace boat_app.Controllers
     [ApiController]
     public class BoatController : Controller
     {
-        Boat[] bs = new Boat[]
+        static Boat[] bs = new Boat[]
         {
             new Boat(0, "MyBoat1", "MyModel1"),
             new Boat(1, "MyBoat2", "MyModel2"),
@@ -36,6 +37,16 @@ namespace boat_app.Controllers
             if (ret == null)
                 return Json(new { status = 404, message = "No user with given ID." });
             else return Json(new { status = 200, message = "", obj = ret });
+        }
+
+        [HttpPut("{id}")]
+        public JsonResult PutBoat(string id, [FromBody] Boat boat)
+        {
+            int index = Array.IndexOf(bs, bs.FirstOrDefault<Boat>(b => b.Id.ToString() == id));
+            if(index == -1)
+                return Json(new { status = 404, message = "No boat with given ID." });
+            bs[index] = boat;
+            return Json(new { status = 200, message = "", obj = boat });
         }
     }
 }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 // using FromBodyAttribute = Microsoft.AspNetCore.Mvc.FromBodyAttribute;
 // using HttpPostAttribute = Microsoft.AspNetCore.Mvc.HttpPostAttribute;
@@ -51,9 +52,16 @@ namespace boat_app.Controllers
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
+            Claim[] claims = new Claim[]
+            {
+                new Claim("Id", userInfo.Id.ToString()),
+                new Claim("Username", userInfo.Username),
+                new Claim("Password", userInfo.Password)
+            };
+
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
-              null,
+              claims,
               expires: DateTime.Now.AddMinutes(120),
               signingCredentials: credentials);
 

@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Boat } from '../boat'
 
@@ -11,6 +11,9 @@ export class HomeComponent {
 
   public boats: Boat[];
   public selectedBoat: Boat;
+  private createFormShown = false;
+  @ViewChild('bNameToAdd', { static: false }) private bNameToAdd: ElementRef;
+  @ViewChild('bDescToAdd', { static: false }) private bDescToAdd: ElementRef;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     console.log(baseUrl);
@@ -41,6 +44,29 @@ export class HomeComponent {
   leave(id: number): void {
     document.getElementById("modify-" + id).style.display = "none";
     document.getElementById("delete-" + id).style.display = "none";
+  }
+
+  showCreateForm(): void {
+    this.createFormShown = !this.createFormShown;
+  }
+
+  createBoat(): void {
+    var name = this.bNameToAdd.nativeElement.value;
+    var desc = this.bDescToAdd.nativeElement.value;
+    if (name == "" || desc == "")
+      alert("Please enter values."); // Change to message
+    else {
+      this.http.post(this.baseUrl + "api/boat", { name: name, desc: desc } as Boat).subscribe(r => {
+        this.boats.push(r['obj'] as Boat)
+        this.cleanAddInputs();
+        this.showCreateForm();
+      }, err => console.error(err));
+    }
+  }
+
+  cleanAddInputs(): void {
+    this.bNameToAdd.nativeElement.value = "";
+    this.bDescToAdd.nativeElement.value = "";
   }
 
 }

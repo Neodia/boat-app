@@ -6,7 +6,7 @@
         <th scope="col">#</th>
         <th scope="col">Name</th>
         <th scope="col">Description</th>
-        <th scope="col">Actions</th>
+        <th scope="col" class="text-center">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -14,10 +14,10 @@
         <td [routerLink]="['/boat-details/' + boat.id]">{{ boat.id }}</td>
         <td [routerLink]="['/boat-details/' + boat.id]">{{ boat.name }}</td>
         <td [routerLink]="['/boat-details/' + boat.id]" class="text-truncate">{{ boat.desc }}</td>
-        <td class="pb-0 pt-1">
-          <button type="button" class="btn" id="modify-{{boat.id}}" (click)="getModal(boat)" style="display: none;"><i class="material-icons">build</i></button>
+        <td class="pb-0 pt-1 d-flex">
+          <button type="button" class="btn m-auto" id="modify-{{boat.id}}" (click)="getModal(boat)" style="display: none;"><i class="material-icons">build</i></button>
 
-          <button type="button" class="btn" id="delete-{{boat.id}}" (click)="deleteBoat(boat)" style="display: none;"><i class="material-icons">delete</i></button>
+          <button type="button" class="btn m-auto" id="delete-{{boat.id}}" (click)="deleteBoat(boat)" style="display: none;"><i class="material-icons">delete</i></button>
         </td>
       </tr>
     </tbody>

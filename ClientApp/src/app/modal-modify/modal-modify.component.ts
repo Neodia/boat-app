@@ -11,8 +11,8 @@ export class ModalModifyComponent {
 
   @Input() boat: Boat = { name: "" } as Boat;
   @Output() retboat: EventEmitter<Boat> = new EventEmitter<Boat>();
-  @ViewChild('name') nameInput: ElementRef;
-  @ViewChild('desc') descInput: ElementRef;
+  @ViewChild('name', { static: false }) nameInput: ElementRef;
+  @ViewChild('desc', { static: false }) descInput: ElementRef;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
 

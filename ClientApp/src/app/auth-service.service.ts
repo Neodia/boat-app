@@ -15,4 +15,6 @@ export class AuthService {
     return this.http.post(this.baseUrl + 'api/login', { "username": username, "password": password });
   }
 
+  isLoggedIn(): boolean { return localStorage.getItem("jwt") !== null }
+
 }

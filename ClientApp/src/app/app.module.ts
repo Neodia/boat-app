@@ -11,6 +11,7 @@ import { BoatDetailsComponent } from './boat-details/boat-details.component';
 import { ModalModifyComponent } from './modal-modify/modal-modify.component';
 import { LoginComponent } from './login/login.component';
 import { ReqInterceptor } from './req-interceptor';
+import { AccessGuard } from './access-guard';
 
 @NgModule({
   declarations: [
@@ -28,11 +29,14 @@ import { ReqInterceptor } from './req-interceptor';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent, pathMatch: 'full' },
-      { path: 'home', component: HomeComponent, pathMatch: 'full' },
-      { path: 'boat-details/:id', component: BoatDetailsComponent, pathMatch: 'full' }
+      { path: 'home', component: HomeComponent, pathMatch: 'full', canActivate: [AccessGuard] },
+      { path: 'boat-details/:id', component: BoatDetailsComponent, pathMatch: 'full', canActivate: [AccessGuard] }
     ])
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: ReqInterceptor, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ReqInterceptor, multi: true },
+    AccessGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

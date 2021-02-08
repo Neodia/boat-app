@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiCaller } from '../api-caller.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -8,11 +9,17 @@ import { Component } from '@angular/core';
 export class NavMenuComponent {
   isExpanded = false;
 
+  constructor(private apiCaller: ApiCaller) {}
+
   collapse() {
     this.isExpanded = false;
   }
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  logout() {
+    this.apiCaller.authService.logout();
   }
 }

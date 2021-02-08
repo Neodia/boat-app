@@ -26,6 +26,7 @@ namespace boat_app.Controllers
         });
 
         [HttpGet]
+        [Authorize]
         public IEnumerable<Boat> Get()
         {
             return bs;
@@ -38,7 +39,7 @@ namespace boat_app.Controllers
         }
 
         [HttpGet("{id}")]
-        // [Authorize]
+        [Authorize]
         public ActionResult<Boat> GetBoat(string id)
         {
             Boat ret = bs.FirstOrDefault(b => b.Id.ToString() == id);
@@ -48,6 +49,7 @@ namespace boat_app.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public JsonResult PostBoat([FromBody] Boat boat)
         {
             boat.Id = boatId++;
@@ -56,6 +58,7 @@ namespace boat_app.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public JsonResult PutBoat(string id, [FromBody] Boat boat)
         {
             int index = bs.IndexOf(bs.FirstOrDefault<Boat>(b => b.Id.ToString() == id));
@@ -66,6 +69,7 @@ namespace boat_app.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public JsonResult DeleteBoat(string id)
         {
             Boat b = bs.FirstOrDefault(b => b.Id.ToString() == id);

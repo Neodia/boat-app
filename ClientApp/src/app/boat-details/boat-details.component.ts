@@ -10,7 +10,7 @@ import { ApiCaller } from '../api-caller.service';
 })
 export class BoatDetailsComponent {
 
-  public boat: Boat = {name:""} as Boat;
+  public boat: Boat;
   private id: string;
 
   constructor(private route: ActivatedRoute, private apiCaller: ApiCaller) {

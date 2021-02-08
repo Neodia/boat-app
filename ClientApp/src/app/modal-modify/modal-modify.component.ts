@@ -9,7 +9,7 @@ import {Boat} from '../boat'
 })
 export class ModalModifyComponent {
 
-  @Input() boat: Boat = { name: "" } as Boat;
+  @Input() boat: Boat;
   @Output() retboat: EventEmitter<Boat> = new EventEmitter<Boat>();
   @ViewChild('name', { static: false }) nameInput: ElementRef;
   @ViewChild('desc', { static: false }) descInput: ElementRef;

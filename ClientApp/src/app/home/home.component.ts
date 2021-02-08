@@ -1,6 +1,6 @@
-import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Boat } from '../boat'
+import { ApiCaller } from '../api-caller.service';
 
 
 @Component({
@@ -15,9 +15,8 @@ export class HomeComponent {
   @ViewChild('bNameToAdd', { static: false }) private bNameToAdd: ElementRef;
   @ViewChild('bDescToAdd', { static: false }) private bDescToAdd: ElementRef;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
-    console.log(baseUrl);
-    http.get<Boat[]>(baseUrl + 'api/boat').subscribe(r => { this.boats = r; this.selectedBoat = this.boats[1]; }, err => console.error(err));
+  constructor(private apiCaller: ApiCaller) {
+    apiCaller.getBoats().subscribe(r => { this.boats = r; this.selectedBoat = this.boats[1]; }, err => console.error(err));
   }
 
   getModal(boat: Boat): void {
@@ -26,7 +25,7 @@ export class HomeComponent {
   }
 
   deleteBoat(boat: Boat): void {
-    this.http.delete(this.baseUrl + "api/boat/" + boat.id).subscribe(r => {
+    this.apiCaller.deleteBoat(boat.id.toString()).subscribe(r => {
       console.log("Success delete");
       this.boats.splice(this.boats.indexOf(boat), 1);
     }, err => console.error(err));
@@ -56,7 +55,7 @@ export class HomeComponent {
     if (name == "" || desc == "")
       alert("Please enter values."); // Change to message
     else {
-      this.http.post(this.baseUrl + "api/boat", { name: name, desc: desc } as Boat).subscribe(r => {
+      this.apiCaller.addBoat(name, desc).subscribe(r => {
         this.boats.push(r['obj'] as Boat)
         this.cleanAddInputs();
         this.showCreateForm();

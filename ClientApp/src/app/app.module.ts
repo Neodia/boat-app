@@ -10,8 +10,6 @@ import { HomeComponent } from './home/home.component';
 import { BoatDetailsComponent } from './boat-details/boat-details.component';
 import { ModalModifyComponent } from './modal-modify/modal-modify.component';
 import { LoginComponent } from './login/login.component';
-// import { CounterComponent } from './counter/counter.component';
-// import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +19,6 @@ import { LoginComponent } from './login/login.component';
     BoatDetailsComponent,
     ModalModifyComponent,
     LoginComponent
-    // CounterComponent,
-    // FetchDataComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -30,11 +26,9 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: LoginComponent, pathMatch: 'full' },
-      { path: 'home', component: HomeComponent, pathMatch: 'full' },
-      { path: 'boat-details/:id', component: BoatDetailsComponent, pathMatch: 'full' },
-      // { path: 'counter', component: CounterComponent },
-      // { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'home', component: LoginComponent, pathMatch: 'full' },
+      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'boat-details/:id', component: BoatDetailsComponent, pathMatch: 'full' }
     ])
   ],
   providers: [],

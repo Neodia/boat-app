@@ -1,4 +1,5 @@
 ﻿using boat_app.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -37,12 +38,13 @@ namespace boat_app.Controllers
         }
 
         [HttpGet("{id}")]
+        // [Authorize]
         public ActionResult<Boat> GetBoat(string id)
         {
             Boat ret = bs.FirstOrDefault(b => b.Id.ToString() == id);
             if (ret == null)
                 return ReturnErr(HttpStatusCode.NotFound, "No boat with this ID");
-            else return Json(new { status = 200, message = "", obj = ret });
+            else return ret;
         }
 
         [HttpPost]

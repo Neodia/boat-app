@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators  } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ApiCaller } from '../api-caller.service';
 
 @Component({
   selector: 'login',
@@ -11,7 +11,7 @@ export class LoginComponent {
 
   private form: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) {
+  constructor(private fb: FormBuilder, private apiCaller: ApiCaller, private router: Router) {
     this.form = this.fb.group({
       inputUsername: ['', Validators.required],
       inputPassword: ['', Validators.required]
@@ -22,7 +22,7 @@ export class LoginComponent {
     const val = this.form.value;
 
     if (val.inputUsername && val.inputPassword) {
-      this.http.post(this.baseUrl + 'api/login', { "username": val.inputUsername, "password": val.inputPassword })
+      this.apiCaller.authService.login(val.inputUsername, val.inputPassword)
         .subscribe(
           (r) => {
             console.log(r);

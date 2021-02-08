@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, EventEmitter, Inject, Input, Output, ViewChild } from '@angular/core';
+import { ApiCaller } from '../api-caller.service';
 import {Boat} from '../boat'
 
 
@@ -14,13 +14,13 @@ export class ModalModifyComponent {
   @ViewChild('name', { static: false }) nameInput: ElementRef;
   @ViewChild('desc', { static: false }) descInput: ElementRef;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {}
+  constructor(private apiCaller: ApiCaller) { }
 
   saveChanges(): void {
     var newBoat: Boat = Object.assign({}, this.boat);
     newBoat.name = this.nameInput.nativeElement.value;
     newBoat.desc = this.descInput.nativeElement.value;
-    this.http.put(this.baseUrl + 'api/boat/' + newBoat.id, newBoat).subscribe(r => {
+    this.apiCaller.updateBoat(newBoat).subscribe(r => {
       this.retboat.emit(newBoat);
       console.log("Success put");
       this.dismiss();

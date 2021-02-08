@@ -1,7 +1,7 @@
-import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Boat } from '../boat'
+import { ApiCaller } from '../api-caller.service';
 
 
 @Component({
@@ -13,14 +13,13 @@ export class BoatDetailsComponent {
   public boat: Boat = {name:""} as Boat;
   private id: string;
 
-  constructor(private route: ActivatedRoute, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    console.log(baseUrl);
+  constructor(private route: ActivatedRoute, private apiCaller: ApiCaller) {
     this.id = this.route.snapshot.paramMap.get("id");
-    http.get<Resp>(baseUrl + 'api/boat/' + this.id).subscribe(r => {
-      if (r.status === 404)
+    this.apiCaller.getBoat(this.id).subscribe(r => {
+      /*if (r.status === 404)
         console.log("Not found : " + JSON.stringify(r)); // Change to redirect to home with message
-      else
-        this.boat = r.obj;
+      else*/
+        this.boat = r;
     }, err => console.error(err));
   }
 
@@ -32,10 +31,4 @@ export class BoatDetailsComponent {
     document.getElementById('modifyModal').style.display = "block";
   }
 
-}
-
-interface Resp {
-  status: number,
-  message: string,
-  obj: Boat
 }

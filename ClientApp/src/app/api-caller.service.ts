@@ -9,7 +9,10 @@ import { Boat } from "./boat";
 })
 export class ApiCaller {
 
-  constructor(public authService: AuthService, private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
+  constructor(
+    public authService: AuthService,
+    private http: HttpClient,
+    @Inject('BASE_URL') private baseUrl: string) { }
 
   getBoats() {
     return this.http.get<Boat[]>(this.baseUrl + 'api/boat');

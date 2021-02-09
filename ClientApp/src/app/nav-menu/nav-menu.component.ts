@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiCaller } from '../api-caller.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { ApiCaller } from '../api-caller.service';
 export class NavMenuComponent {
   isExpanded = false;
 
-  constructor(private apiCaller: ApiCaller) {}
+  constructor(private apiCaller: ApiCaller, private router: Router) { }
 
   collapse() {
     this.isExpanded = false;
@@ -21,5 +22,6 @@ export class NavMenuComponent {
 
   logout() {
     this.apiCaller.authService.logout();
+    this.router.navigateByUrl('/');
   }
 }

@@ -37,7 +37,6 @@ export class HomeComponent {
 
   deleteBoat(boat: Boat): void {
     this.apiCaller.deleteBoat(boat.id.toString()).subscribe(r => {
-      console.log("Success delete");
       this.boats.splice(this.boats.indexOf(boat), 1);
     }, err => console.error(err));
   }
@@ -64,9 +63,7 @@ export class HomeComponent {
   createBoat(): void {
     const val = this.form.value;
 
-    if (!this.form.valid)
-      alert("Please enter values."); // Change to message
-    else {
+    if (this.form.valid) {
       this.apiCaller.addBoat(val.inputBoatName, val.inputBoatDesc).subscribe(r => {
         this.boats.push(r['obj'] as Boat)
         this.cleanAddInputs();

@@ -26,7 +26,6 @@ export class LoginComponent {
       this.apiCaller.authService.login(val.inputUsername, val.inputPassword)
         .subscribe(
           (r) => {
-            console.log(r);
             localStorage.setItem('jwt', r['token']);
             this.router.navigateByUrl('home');
           }, err => this.handleError()

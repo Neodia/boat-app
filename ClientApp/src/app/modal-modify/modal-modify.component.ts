@@ -12,8 +12,9 @@ export class ModalModifyComponent {
 
   private form: FormGroup;
   @Input() boat: Boat;
-
   @Output() retboat: EventEmitter<Boat> = new EventEmitter<Boat>();
+
+  constructor(private fb: FormBuilder, private apiCaller: ApiCaller) { }
 
   // Used to detect when Boat gets a value to properly initialize the form.
   ngOnChanges(changes: SimpleChanges) {
@@ -24,8 +25,6 @@ export class ModalModifyComponent {
       });
     }
   }
-
-  constructor(private fb: FormBuilder, private apiCaller: ApiCaller) {}
 
   saveChanges(): void {
     var newBoat: Boat = Object.assign({}, this.boat);

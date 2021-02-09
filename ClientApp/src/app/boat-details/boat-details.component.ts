@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Boat } from '../boat'
 import { ApiCaller } from '../api-caller.service';
 
@@ -14,14 +14,11 @@ export class BoatDetailsComponent {
   private id: string;
   private messageModifySuccess = false;
 
-  constructor(private route: ActivatedRoute, private apiCaller: ApiCaller) {
+  constructor(private route: ActivatedRoute, private apiCaller: ApiCaller, router: Router) {
     this.id = this.route.snapshot.paramMap.get("id");
     this.apiCaller.getBoat(this.id).subscribe(r => {
-      /*if (r.status === 404)
-        console.log("Not found : " + JSON.stringify(r)); // Change to redirect to home with message
-      else*/
-        this.boat = r;
-    }, err => console.error(err));
+      this.boat = r;
+    }, err => router.navigateByUrl('home'));
   }
 
   onSaveChange(boat: Boat): void {

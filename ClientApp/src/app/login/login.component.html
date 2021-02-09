@@ -9,6 +9,7 @@
       <label for="inputPassword">Password</label>
       <input type="password" class="form-control" id="inputPassword" formControlName="inputPassword" placeholder="Enter password">
     </div>
+    <small class="form-text text-danger" *ngIf="this.messageWarning">Incorrect credentials</small>
     <button class="btn btn-primary" (click)="login()" [disabled]="!form.valid">Submit</button>
   </form>
 </div>

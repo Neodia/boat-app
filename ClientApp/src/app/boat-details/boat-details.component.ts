@@ -12,6 +12,7 @@ export class BoatDetailsComponent {
 
   public boat: Boat;
   private id: string;
+  private messageModifySuccess = false;
 
   constructor(private route: ActivatedRoute, private apiCaller: ApiCaller) {
     this.id = this.route.snapshot.paramMap.get("id");
@@ -25,10 +26,19 @@ export class BoatDetailsComponent {
 
   onSaveChange(boat: Boat): void {
     this.boat = boat;
+    this.handleModifySuccess();
   }
 
   getModal(): void {
     document.getElementById('modifyModal').style.display = "block";
+  }
+
+  handleModifySuccess() {
+    this.messageModifySuccess = true;
+
+    setTimeout(() => {
+      this.messageModifySuccess = false;
+    }, 3000);
   }
 
 }

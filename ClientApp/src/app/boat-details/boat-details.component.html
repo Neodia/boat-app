@@ -14,3 +14,5 @@
 
   <modal-modify [boat]="boat" (retboat)="onSaveChange($event)"></modal-modify>
 </div>
+
+<small class="form-text text-success w-100 text-center" *ngIf="messageModifySuccess">Properly updated</small>

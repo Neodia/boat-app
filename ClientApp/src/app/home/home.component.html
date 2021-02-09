@@ -1,5 +1,6 @@
 <div class="row border rounded">
   <h2 class="w-100 text-center"> Boats list </h2>
+
   <table class="table" style="table-layout: fixed; word-wrap:break-word;">
     <thead>
       <tr>
@@ -27,13 +28,20 @@
   <modal-modify [boat]="selectedBoat" (retboat)="onSaveChanges($event)"></modal-modify>
 </div>
 <div class="row">
+  <small class="form-text text-success w-100 text-center" *ngIf="messageAddSuccess">Properly added</small>
+  <small class="form-text text-success w-100 text-center" *ngIf="messageModifySuccess">Properly updated</small>
   <table class="table" style="table-layout: fixed; word-wrap:break-word;" *ngIf="createFormShown" [formGroup]="form">
     <tbody>
       <tr>
         <td></td>
-        <td><input formControlName="inputBoatName" type="text" class="form-control" placeholder="Enter boat name"/></td>
+        <td><input formControlName="inputBoatName" type="text" class="form-control" placeholder="Enter boat name" /></td>
         <td><input formControlName="inputBoatDesc" type="text" class="form-control" placeholder="Enter boat description" /></td>
         <td><button type="button" class="btn" (click)="createBoat()" [disabled]="!form.valid"><i class="material-icons">check</i></button></td>
+      </tr>
+      <tr *ngIf="messageAddWarning">
+        <td colspan="4">
+          <small class="form-text text-danger w-100 text-center">Server error</small>
+        </td>
       </tr>
     </tbody>
   </table>

@@ -10,6 +10,7 @@ import { ApiCaller } from '../api-caller.service';
 export class LoginComponent {
 
   private form: FormGroup;
+  private messageWarning: boolean = false;
 
   constructor(private fb: FormBuilder, private apiCaller: ApiCaller, private router: Router) {
     this.form = this.fb.group({
@@ -28,9 +29,16 @@ export class LoginComponent {
             console.log(r);
             localStorage.setItem('jwt', r['token']);
             this.router.navigateByUrl('home');
-          }, err => console.error(err)
+          }, err => this.handleError()
         );
     }
   }
 
+  handleError() {
+    this.messageWarning = true;
+
+    setTimeout(() => {                    
+      this.messageWarning = false;
+    }, 3000);
+  }
 }

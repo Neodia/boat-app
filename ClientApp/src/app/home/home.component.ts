@@ -15,6 +15,10 @@ export class HomeComponent {
   private createFormShown = false;
   private form: FormGroup;
 
+  private messageAddWarning = false;
+  private messageAddSuccess = false;
+  private messageModifySuccess = false;
+
   @ViewChild('bNameToAdd', { static: false }) private bNameToAdd: ElementRef;
   @ViewChild('bDescToAdd', { static: false }) private bDescToAdd: ElementRef;
 
@@ -40,6 +44,7 @@ export class HomeComponent {
 
   onSaveChanges(boat: Boat): void {
     this.boats[this.boats.indexOf(this.selectedBoat)] = boat;
+    this.handleModifySuccess();
   }
 
   hover(id: number): void {
@@ -66,6 +71,7 @@ export class HomeComponent {
         this.boats.push(r['obj'] as Boat)
         this.cleanAddInputs();
         this.showCreateForm();
+        this.handleAddSuccess();
       }, err => console.error(err));
     }
   }
@@ -76,4 +82,27 @@ export class HomeComponent {
     this.form.reset(val.inputBoatDesc);
   }
 
-}
+  handleAddError() {
+    this.messageAddWarning = true;
+
+    setTimeout(() => {
+      this.messageAddWarning = false;
+    }, 3000);
+  }
+
+  handleAddSuccess() {
+    this.messageAddSuccess = true;
+
+    setTimeout(() => {
+      this.messageAddSuccess = false;
+    }, 3000);
+  }
+
+  handleModifySuccess() {
+    this.messageModifySuccess = true;
+
+    setTimeout(() => {
+      this.messageModifySuccess = false;
+    }, 3000);
+  }
+  }

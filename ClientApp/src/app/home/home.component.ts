@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Boat } from '../boat'
 import { ApiCaller } from '../api-caller.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -12,10 +13,16 @@ export class HomeComponent {
   public boats: Boat[];
   public selectedBoat: Boat;
   private createFormShown = false;
+  private form: FormGroup;
+
   @ViewChild('bNameToAdd', { static: false }) private bNameToAdd: ElementRef;
   @ViewChild('bDescToAdd', { static: false }) private bDescToAdd: ElementRef;
 
-  constructor(private apiCaller: ApiCaller) {
+  constructor(private fb: FormBuilder, private apiCaller: ApiCaller) {
+    this.form = this.fb.group({
+      inputBoatName: ['', Validators.required],
+      inputBoatDesc: ['', Validators.required]
+    });
     apiCaller.getBoats().subscribe(r => { this.boats = r; this.selectedBoat = this.boats[1]; }, err => console.error(err));
   }
 
@@ -50,12 +57,12 @@ export class HomeComponent {
   }
 
   createBoat(): void {
-    var name = this.bNameToAdd.nativeElement.value;
-    var desc = this.bDescToAdd.nativeElement.value;
-    if (name == "" || desc == "")
+    const val = this.form.value;
+
+    if (!this.form.valid)
       alert("Please enter values."); // Change to message
     else {
-      this.apiCaller.addBoat(name, desc).subscribe(r => {
+      this.apiCaller.addBoat(val.inputBoatName, val.inputBoatDesc).subscribe(r => {
         this.boats.push(r['obj'] as Boat)
         this.cleanAddInputs();
         this.showCreateForm();
@@ -64,8 +71,9 @@ export class HomeComponent {
   }
 
   cleanAddInputs(): void {
-    this.bNameToAdd.nativeElement.value = "";
-    this.bDescToAdd.nativeElement.value = "";
+    const val = this.form.value;
+    this.form.reset(val.inputBoatName);
+    this.form.reset(val.inputBoatDesc);
   }
 
 }

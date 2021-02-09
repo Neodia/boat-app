@@ -27,13 +27,13 @@
   <modal-modify [boat]="selectedBoat" (retboat)="onSaveChanges($event)"></modal-modify>
 </div>
 <div class="row">
-  <table class="table" style="table-layout: fixed; word-wrap:break-word;" *ngIf="createFormShown">
+  <table class="table" style="table-layout: fixed; word-wrap:break-word;" *ngIf="createFormShown" [formGroup]="form">
     <tbody>
       <tr>
         <td></td>
-        <td><input #bNameToAdd type="text" class="form-control" placeholder="Enter boat name"/></td>
-        <td><input #bDescToAdd type="text" class="form-control" placeholder="Enter boat description" /></td>
-        <td><button type="button" class="btn" (click)="createBoat()"><i class="material-icons">check</i></button></td>
+        <td><input formControlName="inputBoatName" type="text" class="form-control" placeholder="Enter boat name"/></td>
+        <td><input formControlName="inputBoatDesc" type="text" class="form-control" placeholder="Enter boat description" /></td>
+        <td><button type="button" class="btn" (click)="createBoat()" [disabled]="!form.valid"><i class="material-icons">check</i></button></td>
       </tr>
     </tbody>
   </table>

@@ -15,10 +15,12 @@ export class ModalModifyComponent {
 
   // Used to detect when Boat gets a value to properly initialize the form.
   ngOnChanges(changes: SimpleChanges) {
-    this.form = this.fb.group({
-      inputBoatName: [changes.boat.currentValue.name, Validators.required],
-      inputBoatDesc: [changes.boat.currentValue.desc, Validators.required]
-    });
+    if (changes.boat.currentValue) {
+      this.form = this.fb.group({
+        inputBoatName: [changes.boat.currentValue.name, Validators.required],
+        inputBoatDesc: [changes.boat.currentValue.desc, Validators.required]
+      });
+    }
   }
 
   @Output() retboat: EventEmitter<Boat> = new EventEmitter<Boat>();

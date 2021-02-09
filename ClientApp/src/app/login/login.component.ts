@@ -13,6 +13,8 @@ export class LoginComponent {
   private messageWarning: boolean = false;
 
   constructor(private fb: FormBuilder, private apiCaller: ApiCaller, private router: Router) {
+    if (this.apiCaller.authService.isLoggedIn)
+      router.navigateByUrl('home');
     this.form = this.fb.group({
       inputUsername: ['', Validators.required],
       inputPassword: ['', Validators.required]
